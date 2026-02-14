@@ -1,0 +1,1777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Service Excellence Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=Crimson+Pro:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1E3A5F;
+            --primary-light: #2E5A8F;
+            --accent: #E8734E;
+            --success: #2D7F5E;
+            --warning: #D97D3A;
+            --danger: #C84848;
+            --bg: #F8F9FB;
+            --card: #FFFFFF;
+            --text: #1A1A1A;
+            --text-muted: #5A5A5A;
+            --border: #E0E4E8;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'IBM Plex Sans', sans-serif;
+            background: linear-gradient(135deg, #F8F9FB 0%, #E8EDF2 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 2.5rem 0;
+            margin-bottom: 3rem;
+            box-shadow: 0 4px 20px rgba(30, 58, 95, 0.15);
+        }
+        
+        h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            letter-spacing: -0.02em;
+        }
+        
+        .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            font-weight: 400;
+        }
+        
+        .progress-overview {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+        }
+        
+        .progress-bar-container {
+            background: #E8EDF2;
+            height: 12px;
+            border-radius: 20px;
+            overflow: hidden;
+            margin: 1.5rem 0;
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--success) 0%, #3CA67A 100%);
+            transition: width 0.6s ease;
+            border-radius: 20px;
+        }
+        
+        .progress-text {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-top: 0.5rem;
+        }
+        
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+        
+        .module-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+            position: relative;
+        }
+        
+        .module-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(30, 58, 95, 0.12);
+            border-color: var(--primary-light);
+        }
+        
+        .module-card.completed {
+            border-color: var(--success);
+            background: linear-gradient(135deg, #ffffff 0%, #f0f9f5 100%);
+        }
+        
+        .module-card.locked {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        .module-card.locked:hover {
+            transform: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+        
+        .module-number {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            text-align: center;
+            line-height: 36px;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .module-card.completed .module-number {
+            background: var(--success);
+        }
+        
+        .module-card.locked .module-number {
+            background: #9CA3AF;
+        }
+        
+        .module-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .module-description {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        
+        .module-status {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+        
+        .status-badge.completed {
+            background: #D4F4E2;
+            color: var(--success);
+        }
+        
+        .status-badge.locked {
+            background: #E5E7EB;
+            color: #6B7280;
+        }
+        
+        .status-badge.available {
+            background: #E0EAFF;
+            color: var(--primary);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.6);
+            z-index: 1000;
+            overflow-y: auto;
+            backdrop-filter: blur(4px);
+        }
+        
+        .modal.active {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 16px;
+            max-width: 800px;
+            width: 100%;
+            margin: 2rem auto;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            padding: 2rem;
+            border-bottom: 2px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+            border-radius: 16px 16px 0 0;
+        }
+        
+        .modal-header h2 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2rem;
+            font-weight: 600;
+        }
+        
+        .close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        
+        .close-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+        
+        .modal-body {
+            padding: 2.5rem;
+            max-height: 70vh;
+            overflow-y: auto;
+        }
+        
+        .content-section {
+            margin-bottom: 2.5rem;
+        }
+        
+        .content-section h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+        
+        .content-section h4 {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            margin: 1.5rem 0 0.75rem;
+            font-weight: 600;
+        }
+        
+        .content-section p {
+            margin-bottom: 1rem;
+            line-height: 1.7;
+        }
+        
+        .content-section ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+        
+        .content-section li {
+            margin-bottom: 0.75rem;
+            line-height: 1.6;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #FFF4E6 0%, #FFE8CC 100%);
+            border-left: 4px solid var(--accent);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .example-box {
+            background: #F0F9FF;
+            border-left: 4px solid var(--primary-light);
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+        }
+        
+        .example-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+        
+        .quiz-section {
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 2px solid var(--border);
+        }
+        
+        .quiz-question {
+            background: #F8F9FB;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 2px solid var(--border);
+        }
+        
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .question-number {
+            background: var(--primary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        .question-type {
+            background: white;
+            color: var(--text-muted);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border);
+        }
+        
+        .question-text {
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+            color: var(--text);
+            line-height: 1.6;
+        }
+        
+        .quiz-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .quiz-option {
+            background: white;
+            border: 2px solid var(--border);
+            padding: 1.25rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .quiz-option:hover {
+            border-color: var(--primary-light);
+            background: #F0F9FF;
+        }
+        
+        .quiz-option.selected {
+            border-color: var(--primary);
+            background: #E0EAFF;
+        }
+        
+        .quiz-option.correct {
+            border-color: var(--success);
+            background: #D4F4E2;
+        }
+        
+        .quiz-option.incorrect {
+            border-color: var(--danger);
+            background: #FEE;
+        }
+        
+        .quiz-option input[type="radio"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        
+        .quiz-option label {
+            cursor: pointer;
+            flex: 1;
+            font-size: 1rem;
+        }
+        
+        .feedback {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            display: none;
+        }
+        
+        .feedback.show {
+            display: block;
+        }
+        
+        .feedback.correct {
+            background: #D4F4E2;
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+        
+        .feedback.incorrect {
+            background: #FEE;
+            color: var(--danger);
+            border: 1px solid var(--danger);
+        }
+        
+        .quiz-results {
+            background: white;
+            border: 3px solid var(--primary);
+            border-radius: 12px;
+            padding: 2.5rem;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .results-score {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1rem 0;
+            font-family: 'Crimson Pro', serif;
+        }
+        
+        .results-score.passed {
+            color: var(--success);
+        }
+        
+        .results-score.failed {
+            color: var(--danger);
+        }
+        
+        .results-message {
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+        
+        .results-details {
+            color: var(--text-muted);
+            margin: 1rem 0;
+        }
+        
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-family: 'IBM Plex Sans', sans-serif;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 58, 95, 0.3);
+        }
+        
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        
+        .btn-secondary:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #247055;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+        
+        .info-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        
+        .info-card h5 {
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .info-card p {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+        
+        .flow-step {
+            background: white;
+            border-left: 4px solid var(--accent);
+            padding: 1.25rem;
+            margin: 1rem 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        }
+        
+        .flow-step strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .modules-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .modal-content {
+                margin: 1rem;
+            }
+            
+            .modal-body {
+                padding: 1.5rem;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>🌟 Customer Service Excellence Training</h1>
+            <p class="subtitle">Master the art of exceptional customer service</p>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="progress-overview">
+            <h3 style="margin-bottom: 1rem; color: var(--primary);">Your Progress</h3>
+            <div class="progress-bar-container">
+                <div class="progress-bar" id="overallProgress" style="width: 0%"></div>
+            </div>
+            <div class="progress-text">
+                <span id="progressText">0 of 6 modules completed</span>
+                <span id="progressPercentage">0%</span>
+            </div>
+        </div>
+
+        <div class="modules-grid" id="modulesGrid"></div>
+    </div>
+
+    <div class="modal" id="moduleModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle"></h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        // Training modules data
+        const modules = [
+            {
+                id: 1,
+                title: "Understanding Service Quality",
+                description: "Learn why service quality matters and its direct impact on business success.",
+                content: `
+                    <div class="content-section">
+                        <h3>Why Service Quality Matters</h3>
+                        <p>Service quality is the foundation of customer satisfaction and business growth. Understanding its importance helps you prioritize excellence in every customer interaction.</p>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h5>Revenue Growth</h5>
+                                <p>Direct Impact on Sales</p>
+                            </div>
+                            <div class="info-card">
+                                <h5>Customer Loyalty</h5>
+                                <p>Strong Retention Rates</p>
+                            </div>
+                            <div class="info-card">
+                                <h5>Brand Reputation</h5>
+                                <p>Positive Market Position</p>
+                            </div>
+                        </div>
+                        
+                        <h4>Key Benefits of High Service Quality</h4>
+                        <ul>
+                            <li><strong>Increased Revenue:</strong> High-quality service directly boosts sales and profitability. Satisfied customers spend more and return frequently.</li>
+                            <li><strong>Customer Loyalty:</strong> Exceptional service fosters strong customer loyalty and retention. Loyal customers become brand advocates.</li>
+                            <li><strong>Brand Reputation:</strong> Consistent service quality builds a strong, positive brand reputation that sets you apart from competitors.</li>
+                            <li><strong>Positive Reviews:</strong> Quality service leads to positive customer reviews and testimonials that attract new customers.</li>
+                            <li><strong>Competitive Advantage:</strong> Superior service quality differentiates your business from the competition.</li>
+                            <li><strong>Continuous Improvement:</strong> Regular customer feedback helps identify areas for improvement and innovation.</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <strong>💡 Remember:</strong> Every customer interaction is an opportunity to demonstrate your commitment to excellence. The quality of service you provide today shapes the reputation of your business tomorrow.
+                        </div>
+                        
+                        <h4>The Service Quality Equation</h4>
+                        <p>Service Quality = Customer Expectations vs. Actual Experience</p>
+                        <p>When you exceed expectations consistently, you create memorable experiences that customers share with others, driving organic growth through word-of-mouth marketing.</p>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "multiple",
+                        question: "What is the primary benefit of high service quality for a business?",
+                        options: [
+                            "It reduces operational costs",
+                            "It directly boosts sales and customer retention",
+                            "It eliminates the need for marketing",
+                            "It simplifies business processes"
+                        ],
+                        correct: 1,
+                        explanation: "High service quality directly boosts sales, profitability, and customer retention. While it may have other benefits, the primary impact is on revenue growth and customer loyalty."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Consistent service quality helps build a strong brand reputation.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Consistent, high-quality service is fundamental to building and maintaining a strong, positive brand reputation."
+                    },
+                    {
+                        type: "multiple",
+                        question: "How does superior service quality give a business competitive advantage?",
+                        options: [
+                            "By lowering prices",
+                            "By differentiating the business from competitors",
+                            "By reducing staff requirements",
+                            "By limiting service options"
+                        ],
+                        correct: 1,
+                        explanation: "Superior service quality differentiates your business from competitors, making customers choose you over alternatives even at similar price points."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Customer feedback is unnecessary once you've achieved high service quality.",
+                        options: ["True", "False"],
+                        correct: 1,
+                        explanation: "False. Regular customer feedback is essential for continuous improvement and helps identify new areas for innovation, regardless of current service levels."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What equation defines service quality?",
+                        options: [
+                            "Price minus Cost",
+                            "Customer Expectations vs. Actual Experience",
+                            "Revenue divided by Time",
+                            "Staff Count times Efficiency"
+                        ],
+                        correct: 1,
+                        explanation: "Service Quality = Customer Expectations vs. Actual Experience. When you exceed expectations, you create memorable positive experiences."
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "Customer Excellence Fundamentals",
+                description: "Master the core principles of customer excellence and empathy-driven communication.",
+                content: `
+                    <div class="content-section">
+                        <h3>What Is Customer Excellence?</h3>
+                        <p>Customer excellence goes beyond simply answering questions. It's about creating memorable experiences through empathy, ownership, and proactive problem-solving.</p>
+                        
+                        <h4>Four Pillars of Customer Excellence</h4>
+                        
+                        <div class="flow-step">
+                            <strong>1. Clear, Accurate, and Timely Responses</strong>
+                            <p>Provide information that is correct, easy to understand, and delivered promptly. Avoid jargon and ensure customers can act on your guidance immediately.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>2. Empathy-Driven Communication</strong>
+                            <p>Understand the customer's emotions and situation. Acknowledge their frustration or concern before jumping to solutions. Show that you genuinely care about their experience.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>3. End-to-End Ownership</strong>
+                            <p>Own the customer issue from start to finish. Don't pass them around or leave them hanging. Follow through until the issue is completely resolved.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>4. Proactive Problem Solving</strong>
+                            <p>Anticipate needs and address potential issues before they escalate. Offer solutions without waiting to be asked.</p>
+                        </div>
+                        
+                        <h4>Why Customer Excellence Matters</h4>
+                        <ul>
+                            <li><strong>Direct Impact on Trust:</strong> Excellence builds customer trust, which leads to retention and increased lifetime value.</li>
+                            <li><strong>Brand Voice:</strong> You are the voice of the company. Every interaction shapes how customers perceive the brand.</li>
+                            <li><strong>Growth Opportunity:</strong> Every interaction is a chance to turn a satisfied customer into a loyal advocate who brings new business.</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <strong>🎯 Key Insight:</strong> Customer excellence is not just about solving problems—it's about creating experiences so positive that customers want to share them with others. You're not just in customer service; you're in the business of creating brand ambassadors.
+                        </div>
+                        
+                        <h4>The Excellence Mindset</h4>
+                        <p>Approach every customer interaction with these principles:</p>
+                        <ul>
+                            <li>Listen actively and fully before responding</li>
+                            <li>Put yourself in the customer's shoes</li>
+                            <li>Take ownership regardless of who caused the issue</li>
+                            <li>Go the extra mile to exceed expectations</li>
+                            <li>Follow up to ensure complete satisfaction</li>
+                        </ul>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "multiple",
+                        question: "Which of the following is NOT one of the four pillars of customer excellence?",
+                        options: [
+                            "Clear, accurate, and timely responses",
+                            "Empathy-driven communication",
+                            "Minimizing interaction time",
+                            "End-to-end ownership"
+                        ],
+                        correct: 2,
+                        explanation: "Minimizing interaction time is not a pillar of customer excellence. While efficiency matters, the focus should be on quality interactions, not rushing customers."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Empathy-driven communication means acknowledging the customer's emotions before providing solutions.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Empathy-driven communication requires acknowledging and validating the customer's feelings and situation before jumping into problem-solving mode."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What does 'end-to-end ownership' mean in customer service?",
+                        options: [
+                            "Passing the customer to the right department",
+                            "Owning the issue from start to complete resolution",
+                            "Taking notes about customer complaints",
+                            "Following standard procedures only"
+                        ],
+                        correct: 1,
+                        explanation: "End-to-end ownership means taking responsibility for the customer's issue from the first contact until it's completely resolved, without passing them around."
+                    },
+                    {
+                        type: "multiple",
+                        question: "As a customer service representative, you are the ___ of the company.",
+                        options: [
+                            "Brand voice",
+                            "Cost center",
+                            "Last resort",
+                            "Problem receiver"
+                        ],
+                        correct: 0,
+                        explanation: "You are the brand voice of the company. Every interaction shapes how customers perceive the entire organization."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Proactive problem solving means waiting for customers to ask questions before offering help.",
+                        options: ["True", "False"],
+                        correct: 1,
+                        explanation: "False. Proactive problem solving means anticipating customer needs and addressing potential issues before they escalate or before being asked."
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "Proper Enquiry Handling Flow",
+                description: "Learn the complete step-by-step process for handling customer enquiries professionally.",
+                content: `
+                    <div class="content-section">
+                        <h3>The 6-Step Enquiry Handling Process</h3>
+                        <p>Following a structured approach ensures consistent, high-quality customer interactions every time.</p>
+                        
+                        <div class="flow-step">
+                            <strong>Step 1: Greet & Acknowledge the Customer</strong>
+                            <p>Start with a warm, professional greeting that includes their name when possible.</p>
+                            <div class="example-box">
+                                <strong>Example:</strong>
+                                "Hi Mr/Ms {Customer Name}, thank you for contacting PolicyStreet. I'm Sarah from the Customer Support team, and I'll be assisting you today."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>Step 2: Understand and Confirm the Issue</strong>
+                            <p>Listen carefully, ask clarifying questions, and confirm your understanding before proceeding.</p>
+                            <div class="example-box">
+                                <strong>Example:</strong>
+                                "We're sorry to hear that you haven't received your policy yet. Kindly share your car plate number, and we'll check this for you right away."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>Step 3: Provide Solution or Next Steps</strong>
+                            <p>Explain what you've found and what action will be taken. Be clear and specific.</p>
+                            <div class="example-box">
+                                <strong>Example:</strong>
+                                "Thank you for providing the car plate number. I've checked your record, and your policy is currently pending approval from the insurer. We are actively following up with the insurer to expedite the process."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>Step 4: Set Clear Expectations (Timeline/Follow-up)</strong>
+                            <p>Always provide a specific timeline or next update time. Never leave customers wondering.</p>
+                            <div class="example-box">
+                                <strong>Example:</strong>
+                                "We expect to receive an update from the insurer by tomorrow. I will provide you with an update once we receive their approval."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>Step 5: Confirm Resolution or Next Action</strong>
+                            <p>Ensure the customer knows exactly what happens next.</p>
+                            <div class="example-box">
+                                <strong>If Resolved:</strong>
+                                "Your policy has been successfully issued. I have attached the cover note here for your reference. Please review the details and let us know if everything is in order."
+                                <br><br>
+                                <strong>If Still Pending:</strong>
+                                "I will continue monitoring this closely and keep you updated by the committed timeline. Rest assured, we are prioritizing your case."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>Step 6: Close Politely</strong>
+                            <p>End on a positive, helpful note and invite further questions.</p>
+                            <div class="example-box">
+                                <strong>Example:</strong>
+                                "If you have any further questions or require additional assistance, please feel free to let us know. Thank you for your patience and understanding."
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>⚡ Pro Tip:</strong> Always follow this sequence. Skipping steps (especially setting clear expectations) is a common cause of negative reviews. Structure creates trust.
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "multiple",
+                        question: "What should you do first when a customer contacts you?",
+                        options: [
+                            "Ask them to explain the problem",
+                            "Greet and acknowledge them professionally",
+                            "Provide a solution immediately",
+                            "Transfer them to another department"
+                        ],
+                        correct: 1,
+                        explanation: "Always start by greeting and acknowledging the customer professionally. This sets a positive tone for the entire interaction."
+                    },
+                    {
+                        type: "true-false",
+                        question: "You should always confirm your understanding of the customer's issue before providing solutions.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Confirming your understanding ensures you're solving the right problem and shows the customer you're listening carefully."
+                    },
+                    {
+                        type: "multiple",
+                        question: "When should you set clear expectations with the customer?",
+                        options: [
+                            "Only if they ask",
+                            "After providing the solution and before confirming resolution",
+                            "At the end of the conversation",
+                            "Never, let them figure it out"
+                        ],
+                        correct: 1,
+                        explanation: "Set clear expectations (timeline/follow-up) immediately after providing the solution. This prevents uncertainty and potential negative reviews."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What is the correct closing for a customer interaction?",
+                        options: [
+                            "Just end the chat abruptly",
+                            "Say 'Goodbye' and nothing else",
+                            "Close politely and invite further questions",
+                            "Ask them to call back if needed"
+                        ],
+                        correct: 2,
+                        explanation: "Always close politely by inviting further questions and thanking them for their patience. This leaves a positive final impression."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Skipping the step of setting clear expectations is a common cause of negative reviews.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. When customers don't know when to expect an update or resolution, they feel ignored and are more likely to leave negative feedback."
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "Handling Negative Reviews",
+                description: "Understand the causes of negative reviews and learn prevention strategies.",
+                content: `
+                    <div class="content-section">
+                        <h3>Common Causes of Negative Reviews</h3>
+                        <p>Understanding what triggers negative reviews helps you prevent them proactively.</p>
+                        
+                        <h4>1. No Response from Customer Service</h4>
+                        
+                        <div class="info-card" style="margin: 1rem 0;">
+                            <h5>Why it Happens</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Slow response or no acknowledgement</li>
+                                <li>Customer feels ignored or forgotten</li>
+                                <li>Messages fall through the cracks</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5>How to Prevent</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Always acknowledge enquiries promptly, even if resolution takes time</li>
+                                <li>Set clear expectations on response time</li>
+                                <li>Proactively update customers if there are delays</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>Good Response Template:</strong>
+                            "Thank you for reaching out to us. We've received your enquiry and are currently looking into this for you."
+                            <br><br>
+                            <strong>If Response Was Delayed:</strong>
+                            "We sincerely apologize for the delayed response and understand how frustrating it can be to wait without an update. We're currently reviewing your case and will provide a clear update by [specific time/date]."
+                        </div>
+                        
+                        <h4>2. Didn't Receive Policy and/or Road Tax</h4>
+                        
+                        <div class="info-card" style="margin: 1rem 0;">
+                            <h5>Why it Happens</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Insurer or system delays not communicated to customer</li>
+                                <li>Customer unsure of activation or processing status</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5>How to Prevent</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Explain the process and timeline upfront</li>
+                                <li>Provide regular status updates</li>
+                                <li>Reassure customers until completion</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>Good Response Template:</strong>
+                            "Thank you for providing your car plate number. I've checked your record—our team submitted your vehicle photos to the insurer yesterday. Your policy is currently under review and pending approval from the underwriter. We are actively following up with the insurer to expedite the process and will ensure your policy is issued as soon as possible. We expect to receive an update from the insurer by tomorrow."
+                        </div>
+                        
+                        <h4>3. Being Asked to Top Up</h4>
+                        
+                        <div class="info-card" style="margin: 1rem 0;">
+                            <h5>Why it Happens</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Customer feels misled or scammed after checkout</li>
+                                <li>Price differences not communicated timely</li>
+                                <li>Lack of transparency about pricing changes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="info-card">
+                            <h5>How to Prevent</h5>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Inform customers immediately when price differences are detected</li>
+                                <li>Clearly explain the reason (e.g., insurer recalculation, NCD affected by claim)</li>
+                                <li>Use empathetic wording and present options</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>Good Response Template:</strong>
+                            "Hi Sir/Madam, we have reviewed your policy and noticed a change in the base premium due to a pricing revision by the insurer. As a result, an additional payment of RM150 is required to proceed with the issuance. Please let us know if you'd like to proceed with the top-up, and we'll arrange the payment link accordingly. Alternatively, if you prefer not to continue, we can assist with the cancellation and refund process. We sincerely apologize for the inconvenience caused and appreciate your understanding."
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>🎯 Remember:</strong> Most negative reviews stem from poor communication, not from the actual issue. Proactive, transparent, and empathetic communication can turn potentially negative experiences into positive ones.
+                        </div>
+                        
+                        <h4>What If a Customer Leaves a Bad Review?</h4>
+                        <ul>
+                            <li><strong>Don't panic:</strong> Stay calm and professional</li>
+                            <li><strong>Don't argue with customers:</strong> Never be defensive in public responses</li>
+                            <li><strong>Escalate internally:</strong> Inform your superior immediately</li>
+                            <li><strong>Learn from patterns:</strong> If multiple reviews mention the same issue, address the root cause</li>
+                        </ul>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "multiple",
+                        question: "What is the main cause of 'No Response' negative reviews?",
+                        options: [
+                            "Poor product quality",
+                            "High prices",
+                            "Slow response or no acknowledgement making customers feel ignored",
+                            "Too many options"
+                        ],
+                        correct: 2,
+                        explanation: "Slow response or no acknowledgement makes customers feel ignored or forgotten, which is the primary trigger for 'no response' complaints."
+                    },
+                    {
+                        type: "true-false",
+                        question: "If you can't resolve an issue immediately, you should wait until you have a solution before responding to the customer.",
+                        options: ["True", "False"],
+                        correct: 1,
+                        explanation: "False. Always acknowledge enquiries promptly, even if resolution takes time. Set clear expectations and keep customers informed about progress."
+                    },
+                    {
+                        type: "multiple",
+                        question: "When a customer complains about not receiving their policy, what should you include in your response?",
+                        options: [
+                            "Just apologize and say you'll check",
+                            "Explain the process, provide timeline, and reassure with specific next steps",
+                            "Tell them to wait longer",
+                            "Blame the insurance company"
+                        ],
+                        correct: 1,
+                        explanation: "Provide a comprehensive response that explains the process, gives a specific timeline, and reassures the customer with clear next steps."
+                    },
+                    {
+                        type: "true-false",
+                        question: "When asking for a top-up payment, you should explain the reason clearly and offer options.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Clear explanation of why additional payment is needed, combined with empathy and presenting options (proceed or cancel), helps prevent negative reactions."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What should you do if a customer leaves a bad review?",
+                        options: [
+                            "Argue with them publicly",
+                            "Ignore it completely",
+                            "Don't panic, escalate internally to your superior, and learn from patterns",
+                            "Delete the review"
+                        ],
+                        correct: 2,
+                        explanation: "Stay calm, escalate to your superior, and analyze patterns to prevent future similar issues. Never argue publicly or ignore legitimate concerns."
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "Getting Positive Reviews",
+                description: "Learn the right way to encourage positive Google reviews from satisfied customers.",
+                content: `
+                    <div class="content-section">
+                        <h3>Encouraging Positive Google Reviews</h3>
+                        <p>Positive reviews are crucial for business growth, but asking for them requires timing, tact, and genuine value delivery.</p>
+                        
+                        <div class="highlight-box">
+                            <strong>📊 The Review Impact:</strong> After receiving 1 one-star review, you would need 20 additional five-star reviews to restore a rating to 4.8. Prevention and proactive positive review generation are essential.
+                        </div>
+                        
+                        <h4>When to Ask for Reviews</h4>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h5>✅ DO ASK WHEN:</h5>
+                                <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                    <li>Issue fully resolved</li>
+                                    <li>Customer says "Thanks" or "Appreciate it"</li>
+                                    <li>Smooth experience</li>
+                                    <li>Emotion is positive</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>❌ DON'T ASK WHEN:</h5>
+                                <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                    <li>Case still pending</li>
+                                    <li>Customer frustrated</li>
+                                    <li>Top-up/payment issues</li>
+                                    <li>Complaint situations</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h4>Perfect Timing Scenarios</h4>
+                        <ul>
+                            <li>After successful resolution of an issue</li>
+                            <li>When customer expresses satisfaction ("thanks", "appreciate it", "good service")</li>
+                            <li>After smooth policy purchase or renewal</li>
+                            <li>When you went the extra mile for them</li>
+                        </ul>
+                        
+                        <h4>How to Ask Properly</h4>
+                        
+                        <div class="flow-step">
+                            <strong>1. Be Polite and Non-Pushy</strong>
+                            <p>Never demand or pressure. Make it a friendly request.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>2. Explain the Benefit</strong>
+                            <p>Tell them how feedback helps improve service for everyone.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>3. Provide Clear Instructions</strong>
+                            <p>Make it easy by sharing the direct review link.</p>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>4. Ask While Conversation is Warm</strong>
+                            <p>Don't wait days—ask immediately after positive resolution.</p>
+                        </div>
+                        
+                        <h4>Script Examples</h4>
+                        
+                        <div class="example-box">
+                            <strong>✅ GOOD EXAMPLE:</strong>
+                            "We're glad we could assist you today. If you're happy with our service, we'd really appreciate a short Google review—it helps us improve and support more customers."
+                            <br><br>
+                            <em>*Attach Google review link*</em>
+                        </div>
+                        
+                        <div style="background: #FEE; border-left: 4px solid var(--danger); padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px;">
+                            <strong style="color: var(--danger);">❌ BAD EXAMPLES:</strong>
+                            <ul style="margin-top: 0.5rem; color: var(--danger);">
+                                <li>"Please give us 5 stars"</li>
+                                <li>"Can you leave a review now?"</li>
+                                <li>"We need good ratings"</li>
+                                <li>Asking multiple times</li>
+                            </ul>
+                        </div>
+                        
+                        <h4>Tips for Getting Good Reviews</h4>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h5>Serve Well First</h5>
+                                <p>Reviews come second. Focus on excellence first.</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>Use Your Name</h5>
+                                <p>"From me, Sarah, who assisted you today"</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>Personalize It</h5>
+                                <p>"Hey Farah, I'm glad to help you sort out your road tax renewal!"</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>Timing Matters</h5>
+                                <p>Ask while conversation is still warm, not days later</p>
+                            </div>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>🌟 Golden Rule:</strong> Serve well first, reviews come second. Never ask for reviews if the customer experience wasn't genuinely excellent. Authentic positive experiences lead to authentic positive reviews.
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "true-false",
+                        question: "You should ask for a Google review even when the customer's case is still pending.",
+                        options: ["True", "False"],
+                        correct: 1,
+                        explanation: "False. Never ask for reviews when cases are still pending, customers are frustrated, or there are unresolved payment issues. Only ask when the experience is genuinely positive."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What is the best time to ask for a positive review?",
+                        options: [
+                            "Immediately when they first contact you",
+                            "After successful resolution when the customer expresses satisfaction",
+                            "A week after their issue is resolved",
+                            "Before solving their problem"
+                        ],
+                        correct: 1,
+                        explanation: "The best time is after successful resolution when the customer expresses satisfaction—while the conversation is still warm and positive emotions are high."
+                    },
+                    {
+                        type: "multiple",
+                        question: "Which of these is a BAD way to ask for a review?",
+                        options: [
+                            "\"We're glad we could assist you. If you're happy, we'd appreciate a short review.\"",
+                            "\"Please give us 5 stars!\"",
+                            "\"If you're happy with our service, a review would help us support more customers.\"",
+                            "Providing a direct link and explaining it helps improve service"
+                        ],
+                        correct: 1,
+                        explanation: "Demanding '5 stars' is pushy and inappropriate. Reviews should be earned through genuine service excellence, not demanded."
+                    },
+                    {
+                        type: "true-false",
+                        question: "Personalizing your review request by using your name can make it more effective.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Personalization like 'From me, Sarah, who assisted you today' creates a human connection and makes the request more genuine and effective."
+                    },
+                    {
+                        type: "multiple",
+                        question: "How many 5-star reviews are needed to restore a 4.8 rating after receiving one 1-star review?",
+                        options: [
+                            "5 reviews",
+                            "10 reviews",
+                            "20 reviews",
+                            "50 reviews"
+                        ],
+                        correct: 2,
+                        explanation: "You need approximately 20 five-star reviews to restore a 4.8 rating after one 1-star review, highlighting the importance of prevention and proactive positive review generation."
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "Professional Communication Standards",
+                description: "Master the essential do's and don'ts, SLA expectations, and handling difficult situations.",
+                content: `
+                    <div class="content-section">
+                        <h3>Communication Do's and Don'ts</h3>
+                        
+                        <h4>Before Assisting Customer Enquiries</h4>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h5>✅ DO's</h5>
+                                <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                    <li>Read the entire conversation thread before replying</li>
+                                    <li>Understand what has already been promised</li>
+                                    <li>Check Slack for related discussions</li>
+                                    <li>Verify the full context</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>❌ DON'Ts</h5>
+                                <ul style="font-size: 0.9rem; margin-top: 0.5rem;">
+                                    <li>Don't reply without reading the full thread</li>
+                                    <li>Avoid repeating questions already answered</li>
+                                    <li>Don't contradict previous responses</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <h4>During Customer Assistance</h4>
+                        
+                        <div class="flow-step">
+                            <strong>✅ DO: Show Empathy Where Appropriate</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Acknowledge inconvenience or frustration</li>
+                                <li>Maintain a calm and professional tone</li>
+                                <li>Validate their feelings before solving</li>
+                            </ul>
+                            <div class="example-box" style="margin-top: 1rem;">
+                                <strong>Customer:</strong> "Where is my policy?!"
+                                <br><br>
+                                <strong>Good Response:</strong> "We truly understand how important it is for you to receive your policy on time, and we're sorry for the delay. We're currently checking with the insurer to expedite the issuance and will update you by 3PM today. Thank you for your patience."
+                            </div>
+                        </div>
+                        
+                        <div class="flow-step">
+                            <strong>❌ DON'T: Sound Robotic or Overly Casual</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li>Avoid template replies that ignore specific situations</li>
+                                <li>Do not use terms like "dear", "ya", "okie", "boss"</li>
+                                <li>Don't be overly formal or stiff</li>
+                            </ul>
+                        </div>
+                        
+                        <h4>Match Customer's Language & Tone</h4>
+                        
+                        <div class="example-box">
+                            <strong>✅ CORRECT:</strong>
+                            <br>
+                            <strong>Customer (in Malay):</strong> "Saya belum terima polisi lagi!"
+                            <br>
+                            <strong>Your Response (in Malay):</strong> "Terima kasih atas mesej anda. Boleh kongsikan nombor plat kenderaan supaya kami boleh semak untuk anda?"
+                        </div>
+                        
+                        <div style="background: #FEE; border-left: 4px solid var(--danger); padding: 1.5rem; margin: 1.5rem 0; border-radius: 8px;">
+                            <strong style="color: var(--danger);">❌ INCORRECT:</strong>
+                            <br>
+                            Switching language or responding in English when customer writes in Malay
+                        </div>
+                        
+                        <h4>Service-Level Agreement (SLA)</h4>
+                        
+                        <div class="highlight-box">
+                            <strong>First Response Time SLA</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>WhatsApp (weekday, 9am-6pm):</strong> ≤ 20 minutes (current: ≤ 1 hour)</li>
+                                <li><strong>WhatsApp (weekend, 9am-6pm):</strong> ≤ 30 minutes (current: ≤ 2 hours)</li>
+                                <li><strong>Email (9am-6pm):</strong> ≤ 2 working hours (current: ≤ 1 business day)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <strong>Internal Escalation SLA</strong>
+                            <ul style="margin-top: 0.5rem;">
+                                <li><strong>System/API issue:</strong> Immediate → Tech (≤ 30 mins)</li>
+                                <li><strong>Policy approval:</strong> Same day → Insurer</li>
+                                <li><strong>Top-up cases:</strong> Immediate → Team Lead</li>
+                                <li><strong>High-value/VIP/complaint:</strong> Immediate → Manager</li>
+                            </ul>
+                        </div>
+                        
+                        <h4>Handling Difficult Customers</h4>
+                        
+                        <div class="info-grid">
+                            <div class="info-card">
+                                <h5>1. Remain in Control</h5>
+                                <p>Stay calm and composed regardless of customer emotion</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>2. Listen & Let Them Vent</h5>
+                                <p>Allow customers to express frustration fully</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>3. Show You Care</h5>
+                                <p>Demonstrate genuine empathy and concern</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>4. Don't Blame</h5>
+                                <p>Never blame the customer or your company</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>5. Solve or Escalate</h5>
+                                <p>Try to solve, or get someone who can</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>6. Keep Promises Realistic</h5>
+                                <p>Don't make promises you can't keep</p>
+                            </div>
+                            
+                            <div class="info-card">
+                                <h5>7. Don't Take It Personally</h5>
+                                <p>Remember: they're frustrated with the situation, not you</p>
+                            </div>
+                        </div>
+                        
+                        <h4>Ownership Mindset</h4>
+                        <p>When you're not sure what to do:</p>
+                        <ul>
+                            <li>Take ownership of finding the answer—don't leave the customer hanging</li>
+                            <li>Escalate to the right person or team immediately</li>
+                            <li>Keep the customer informed throughout the process</li>
+                            <li>Follow up to ensure resolution</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <strong>🎯 Core Principle:</strong> Every customer interaction is an opportunity to demonstrate professionalism, empathy, and ownership. Your communication standards directly reflect the company's brand quality.
+                        </div>
+                    </div>
+                `,
+                quiz: [
+                    {
+                        type: "true-false",
+                        question: "Before replying to a customer, you should always read the entire conversation thread to understand what has already been discussed.",
+                        options: ["True", "False"],
+                        correct: 0,
+                        explanation: "True. Reading the full thread prevents repetition, contradictions, and shows you're paying attention to the customer's situation."
+                    },
+                    {
+                        type: "multiple",
+                        question: "Which terms should you AVOID when communicating with customers?",
+                        options: [
+                            "Thank you, Please, I understand",
+                            "Dear, Ya, Okie, Boss",
+                            "We apologize, We appreciate",
+                            "Happy to help, Let me check"
+                        ],
+                        correct: 1,
+                        explanation: "Avoid overly casual terms like 'dear', 'ya', 'okie', 'boss'. Maintain professional but friendly language."
+                    },
+                    {
+                        type: "multiple",
+                        question: "What is the target first response time for WhatsApp enquiries during weekdays?",
+                        options: [
+                            "≤ 5 minutes",
+                            "≤ 20 minutes",
+                            "≤ 1 hour",
+                            "≤ 2 hours"
+                        ],
+                        correct: 1,
+                        explanation: "The target SLA for WhatsApp first response during weekdays (9am-6pm) is ≤ 20 minutes, though current performance allows up to 1 hour."
+                    },
+                    {
+                        type: "true-false",
+                        question: "When a customer writes to you in Malay, you should respond in English for clarity.",
+                        options: ["True", "False"],
+                        correct: 1,
+                        explanation: "False. Always match the customer's language and tone. If they write in Malay, respond in Malay. This shows respect and improves communication."
+                    },
+                    {
+                        type: "multiple",
+                        question: "When handling a difficult customer, what should you do?",
+                        options: [
+                            "Argue back to defend the company",
+                            "Blame them for the issue",
+                            "Remain calm, listen, show empathy, and solve the problem without taking it personally",
+                            "Transfer them immediately to a manager"
+                        ],
+                        correct: 2,
+                        explanation: "Remain in control, listen and let them vent, show you care, don't blame anyone, try to solve the problem, and don't take it personally."
+                    }
+                ]
+            }
+        ];
+
+        // Initialize storage
+        function initStorage() {
+            if (!window.storage) {
+                window.storage = {
+                    async get(key) {
+                        const val = localStorage.getItem(key);
+                        return val ? { key, value: val, shared: false } : null;
+                    },
+                    async set(key, value) {
+                        localStorage.setItem(key, value);
+                        return { key, value, shared: false };
+                    },
+                    async delete(key) {
+                        localStorage.removeItem(key);
+                        return { key, deleted: true, shared: false };
+                    }
+                };
+            }
+        }
+
+        // Load progress from storage
+        async function loadProgress() {
+            initStorage();
+            try {
+                const result = await window.storage.get('training_progress');
+                if (result && result.value) {
+                    return JSON.parse(result.value);
+                }
+            } catch (e) {
+                console.log('No saved progress found');
+            }
+            return {};
+        }
+
+        // Save progress to storage
+        async function saveProgress(progress) {
+            initStorage();
+            await window.storage.set('training_progress', JSON.stringify(progress));
+        }
+
+        let userProgress = {};
+
+        // Initialize the app
+        async function init() {
+            userProgress = await loadProgress();
+            renderModules();
+            updateOverallProgress();
+        }
+
+        // Render module cards
+        function renderModules() {
+            const grid = document.getElementById('modulesGrid');
+            grid.innerHTML = '';
+
+            modules.forEach((module, index) => {
+                const isCompleted = userProgress[module.id]?.completed || false;
+                const isLocked = index > 0 && !userProgress[modules[index - 1].id]?.completed;
+
+                const card = document.createElement('div');
+                card.className = `module-card ${isCompleted ? 'completed' : ''} ${isLocked ? 'locked' : ''}`;
+                
+                if (!isLocked) {
+                    card.onclick = () => openModule(module.id);
+                }
+
+                card.innerHTML = `
+                    <div class="module-number">${module.id}</div>
+                    <div class="module-title">${module.title}</div>
+                    <div class="module-description">${module.description}</div>
+                    <div class="module-status">
+                        ${isCompleted ? '<span class="status-badge completed">✓ Completed</span>' : 
+                          isLocked ? '<span class="status-badge locked">🔒 Locked</span>' : 
+                          '<span class="status-badge available">Start Learning</span>'}
+                    </div>
+                `;
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Update overall progress bar
+        function updateOverallProgress() {
+            const completedModules = modules.filter(m => userProgress[m.id]?.completed).length;
+            const percentage = (completedModules / modules.length) * 100;
+
+            document.getElementById('overallProgress').style.width = percentage + '%';
+            document.getElementById('progressText').textContent = `${completedModules} of ${modules.length} modules completed`;
+            document.getElementById('progressPercentage').textContent = Math.round(percentage) + '%';
+        }
+
+        // Open module modal
+        function openModule(moduleId) {
+            const module = modules.find(m => m.id === moduleId);
+            if (!module) return;
+
+            const modal = document.getElementById('moduleModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+
+            modalTitle.textContent = module.title;
+
+            // Render content and quiz
+            modalBody.innerHTML = module.content + renderQuiz(module);
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('moduleModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Render quiz
+        function renderQuiz(module) {
+            let quizHTML = `
+                <div class="quiz-section">
+                    <h3 style="color: var(--primary); margin-bottom: 1.5rem;">📝 Module Quiz</h3>
+                    <p style="margin-bottom: 2rem; color: var(--text-muted);">Complete this quiz with at least 80% to unlock the next module.</p>
+            `;
+
+            module.quiz.forEach((q, index) => {
+                quizHTML += `
+                    <div class="quiz-question" data-question="${index}">
+                        <div class="question-header">
+                            <span class="question-number">Question ${index + 1} of ${module.quiz.length}</span>
+                            <span class="question-type">${q.type === 'multiple' ? 'Multiple Choice' : 'True/False'}</span>
+                        </div>
+                        <div class="question-text">${q.question}</div>
+                        <div class="quiz-options">
+                `;
+
+                q.options.forEach((option, optIndex) => {
+                    quizHTML += `
+                        <div class="quiz-option" onclick="selectOption(${module.id}, ${index}, ${optIndex})">
+                            <input type="radio" name="q${module.id}_${index}" id="q${module.id}_${index}_${optIndex}" value="${optIndex}">
+                            <label for="q${module.id}_${index}_${optIndex}">${option}</label>
+                        </div>
+                    `;
+                });
+
+                quizHTML += `
+                        </div>
+                        <div class="feedback" id="feedback_${module.id}_${index}"></div>
+                    </div>
+                `;
+            });
+
+            quizHTML += `
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="submitQuiz(${module.id})">Submit Quiz</button>
+                </div>
+                <div id="quizResults_${module.id}"></div>
+                </div>
+            `;
+
+            return quizHTML;
+        }
+
+        // Select quiz option
+        function selectOption(moduleId, questionIndex, optionIndex) {
+            const question = document.querySelector(`[data-question="${questionIndex}"]`);
+            const options = question.querySelectorAll('.quiz-option');
+            
+            options.forEach(opt => opt.classList.remove('selected'));
+            options[optionIndex].classList.add('selected');
+            
+            const radio = document.getElementById(`q${moduleId}_${questionIndex}_${optionIndex}`);
+            radio.checked = true;
+        }
+
+        // Submit quiz
+        async function submitQuiz(moduleId) {
+            const module = modules.find(m => m.id === moduleId);
+            let correctAnswers = 0;
+            let allAnswered = true;
+
+            module.quiz.forEach((q, index) => {
+                const selectedOption = document.querySelector(`input[name="q${moduleId}_${index}"]:checked`);
+                
+                if (!selectedOption) {
+                    allAnswered = false;
+                    return;
+                }
+
+                const selectedValue = parseInt(selectedOption.value);
+                const isCorrect = selectedValue === q.correct;
+                
+                if (isCorrect) correctAnswers++;
+
+                // Show feedback
+                const feedback = document.getElementById(`feedback_${moduleId}_${index}`);
+                const question = document.querySelector(`[data-question="${index}"]`);
+                const options = question.querySelectorAll('.quiz-option');
+
+                options.forEach((opt, idx) => {
+                    if (idx === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (idx === selectedValue && !isCorrect) {
+                        opt.classList.add('incorrect');
+                    }
+                    opt.style.pointerEvents = 'none';
+                });
+
+                feedback.className = `feedback show ${isCorrect ? 'correct' : 'incorrect'}`;
+                feedback.textContent = isCorrect ? '✓ Correct! ' + q.explanation : '✗ Incorrect. ' + q.explanation;
+            });
+
+            if (!allAnswered) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+
+            const score = (correctAnswers / module.quiz.length) * 100;
+            const passed = score >= 80;
+
+            // Show results
+            const resultsDiv = document.getElementById(`quizResults_${moduleId}`);
+            resultsDiv.innerHTML = `
+                <div class="quiz-results">
+                    <h3>${passed ? '🎉 Congratulations!' : '📚 Keep Learning'}</h3>
+                    <div class="results-score ${passed ? 'passed' : 'failed'}">${Math.round(score)}%</div>
+                    <div class="results-message">${passed ? 'You passed!' : 'You need 80% to pass'}</div>
+                    <div class="results-details">You answered ${correctAnswers} out of ${module.quiz.length} questions correctly.</div>
+                    ${passed ? 
+                        '<p style="margin-top: 1.5rem; color: var(--success);">✓ Module completed! You can now proceed to the next module.</p>' :
+                        '<p style="margin-top: 1.5rem; color: var(--text-muted);">Review the material and try again.</p>'
+                    }
+                    <div class="btn-group">
+                        ${passed ? '<button class="btn btn-success" onclick="completeModule(' + moduleId + ')">Continue to Next Module</button>' :
+                                   '<button class="btn btn-secondary" onclick="retakeQuiz(' + moduleId + ')">Retake Quiz</button>'}
+                        <button class="btn btn-secondary" onclick="closeModal()">Close</button>
+                    </div>
+                </div>
+            `;
+
+            resultsDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+
+        // Complete module
+        async function completeModule(moduleId) {
+            userProgress[moduleId] = { completed: true };
+            await saveProgress(userProgress);
+            
+            closeModal();
+            renderModules();
+            updateOverallProgress();
+
+            // Check if all modules completed
+            if (Object.keys(userProgress).length === modules.length) {
+                setTimeout(() => {
+                    alert('🎊 Congratulations! You have completed all training modules and are now certified in Customer Service Excellence!');
+                }, 500);
+            }
+        }
+
+        // Retake quiz
+        function retakeQuiz(moduleId) {
+            closeModal();
+            setTimeout(() => openModule(moduleId), 300);
+        }
+
+        // Close modal on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Initialize on load
+        init();
+    </script>
+</body>
+</html>
